@@ -22,6 +22,7 @@
         v-for="(item, index) in items"
         :key="index"
         type="button"
+        @click="handleSelect(index)"
         :class="`w-2 h-2 md:w-3 md:h-3 rounded-full ${
           index === current ? 'bg-blue-500' : 'bg-gray-400'
         } `"
@@ -79,9 +80,11 @@ function handlePrev() {
   if (current.value > 0) current.value--;
 }
 
-onMounted(() => {
-  console.log("Vue init");
+function handleSelect(index: number) {
+  current.value = index;
+}
 
+onMounted(() => {
   setInterval(() => {
     if (current.value > maxCount - 2) {
       current.value = 0;

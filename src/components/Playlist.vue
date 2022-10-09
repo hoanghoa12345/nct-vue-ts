@@ -68,7 +68,7 @@ watch(current, (i) => {
 });
 </script>
 <template>
-  <div class="mx-4 my-2">
+  <div class="mx-4 my-8">
     <div class="flex justify-between items-center">
       <h2 class="font-bold text-2xl mx-2 my-2">{{ title }}</h2>
       <div>

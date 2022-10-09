@@ -4,8 +4,10 @@ import App from "./App.vue";
 import VueTippy from "vue-tippy";
 import "tippy.js/dist/tippy.css";
 import router from "./router";
+import store from "./store";
 
 const app = createApp(App);
 app.use(VueTippy);
 app.use(router);
+app.use(store);
 app.mount("#app");

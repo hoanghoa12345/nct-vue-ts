@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hidden flex-none w-72 border-l-2 border-gray-200 bg-gray-50 md:flex flex-col justify-between"
+    class="hidden flex-none w-72 border-l-2 border-gray-200 bg-gray-50 lg:flex flex-col justify-between"
   >
     <div class="grow">
       <div class="rouned-md bg-slate-100 mx-auto w-60 mt-8 py-1 rounded">
@@ -18,17 +18,27 @@
     </div>
     <div class="flex-none">
       <div class="flex flex-row justify-between items-center py-2">
-        <button
-          type="button"
-          content="Volume"
-          v-tippy="{ arrow: false, animation: 'shift-away' }"
-        >
+        <div class="group relative py-2">
+          <div
+            class="absolute group-hover:visible invisible bottom-0 h-32 left-1/2 -translate-x-1/2 group-hover:shadow-lg rounded-full w-8"
+          >
+            <input
+              orient="vertical"
+              type="range"
+              value="50"
+              min="1"
+              max="100"
+              class="vertical-range w-[2px] h-24 bg-gray-200 cursor-pointer mx-4"
+            />
+          </div>
           <SpeakerWaveIcon class="w-5 h-5 text-gray-500 mx-4" />
-        </button>
+        </div>
         <div class="rounded-full bg-gray-100 px-4 py-2">
           <button class="text-xs text-gray-500">Danh sách phát</button>
         </div>
-        <EllipsisVerticalIcon class="w-5 h-5 text-gray-500 mx-4" />
+        <button type="button" class="hover:bg-gray-200 rounded-full mx-2">
+          <EllipsisVerticalIcon class="w-5 h-5 text-gray-500 mx-2 my-2" />
+        </button>
       </div>
       <div class="flex flex-row justify-evenly py-2">
         <div><span class="text-xs text-gray-500 mx-2">00:00</span></div>
@@ -38,7 +48,7 @@
             min="1"
             max="100"
             value="1"
-            class="w-full h-[2px] bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm"
+            class="w-full h-[2px] bg-gray-200 rounded-lg appearance-none cursor-pointer"
           />
         </div>
         <div><span class="text-xs text-gray-500 mx-2">03:15</span></div>
@@ -80,3 +90,9 @@ import {
   ArrowsRightLeftIcon,
 } from "@heroicons/vue/24/solid";
 </script>
+<style scoped>
+.vertical-range {
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* Chromium */
+}
+</style>
