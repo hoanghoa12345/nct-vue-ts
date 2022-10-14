@@ -11,11 +11,17 @@
   "dependencies": {
     "@heroicons/vue": "^2.0.12",
     "axios": "^1.1.2",
+    "howler": "^2.2.3",
+    "lodash-es": "^4.17.21",
     "vue": "^3.2.37",
     "vue-router": "^4.1.5",
-    "vue-tippy": "6.0.0-alpha.65"
+    "vue-slider-component": "^4.1.0-beta.2",
+    "vue-tippy": "6.0.0-alpha.65",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@types/howler": "^2.2.7",
+    "@types/lodash-es": "^4.17.6",
     "@vitejs/plugin-vue": "^3.1.0",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.17",

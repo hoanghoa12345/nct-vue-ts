@@ -11,3 +11,9 @@ export function fetchAllCollections() {
     url: "collections",
   });
 }
+
+export function fetchPlaylist(id: string) {
+  return request({
+    url: "playlists/" + id,
+  });
+}

@@ -54,8 +54,7 @@ watch(current, (i) => {
     <div class="relative overflow-hidden" ref="carousel">
       <div class="flex">
         <TrackItem
-          :title="item.name"
-          :image="item.image"
+          :playlist="item"
           v-for="(item, index) in playlists"
           :key="index"
         />
