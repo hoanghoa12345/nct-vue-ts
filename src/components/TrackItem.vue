@@ -2,13 +2,19 @@
 import { PlayCircleIcon } from "@heroicons/vue/24/solid";
 defineProps<{
   title: string;
+  image: string;
 }>();
 </script>
 <template>
   <div>
     <div
-      class="group w-36 h-36 md:w-48 md:h-48 shadow-md relative bg-blue-300 rounded-md mx-3 my-2"
+      class="group w-36 h-36 md:w-48 md:h-48 shadow-md relative bg-black overflow-hidden rounded-md mx-3 my-2"
     >
+      <img
+        class="w-full h-full group-hover:opacity-80 group-hover:scale-110 duration-300"
+        :src="image"
+        :alt="title"
+      />
       <button
         type="button"
         class="hidden absolute group-hover:block top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

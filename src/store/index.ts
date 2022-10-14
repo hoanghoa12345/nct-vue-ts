@@ -1,16 +1,22 @@
+import Player from "@/helpers/player";
 import { createStore } from "vuex";
 
+const mutations = {};
+
 const store = createStore({
-  state() {
-    return {
-      count: 0,
-    };
+  state: {
+    player: new Proxy(new Player(), {
+      set(target: any, prop, val) {
+        target[prop] = val;
+        return true;
+      },
+    }),
+    queueItems: [],
+    recentItems: [],
+    isShowQueuePlaylist: false,
+    isProgressBusy: false,
   },
-  mutations: {
-    increment(state) {
-      state.count++;
-    },
-  },
+  mutations: mutations,
 });
 
 export default store;

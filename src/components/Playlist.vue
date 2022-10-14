@@ -1,55 +1,16 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import {
-  PlayCircleIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/vue/24/solid";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
 import TrackItem from "@/components/TrackItem.vue";
+import { Playlist } from "@/types";
+const props = defineProps({
+  title: String,
+  playlists: { type: Array<Playlist>, required: true },
+});
 
-defineProps<{ title: string }>();
-
-const items = ref([
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-  {
-    image: "",
-    title: "Top Songs: Sơn Tùng...",
-  },
-]);
 const carousel = ref<HTMLElement>();
 let slickItem = 4;
-const maxCount = Math.ceil(items.value.length / slickItem);
+const maxCount = Math.ceil(props.playlists.length / slickItem);
 
 const current = ref(0);
 
@@ -93,8 +54,9 @@ watch(current, (i) => {
     <div class="relative overflow-hidden" ref="carousel">
       <div class="flex">
         <TrackItem
-          :title="item.title + index"
-          v-for="(item, index) in items"
+          :title="item.name"
+          :image="item.image"
+          v-for="(item, index) in playlists"
           :key="index"
         />
       </div>

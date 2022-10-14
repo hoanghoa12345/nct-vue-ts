@@ -9,7 +9,7 @@
         } duration-700 ease-in-out absolute inset-0 transition-all transform`"
       >
         <img
-          :src="item"
+          :src="item.image"
           class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt="slide-item"
         />
@@ -57,20 +57,17 @@
   </div>
 </template>
 <script setup lang="ts">
+import { CarouselItem } from "@/types";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
 import { ref, onMounted } from "vue";
-const carousel = ref(null);
+
+const props = defineProps({
+  items: { type: Array<CarouselItem>, required: true },
+});
+
 const current = ref(0);
-const items = ref([
-  "https://avatar-ex-swe.nixcdn.com/slideshow-web/2022/10/03/7/5/2/9/1664789595472.jpg",
-  "https://avatar-ex-swe.nixcdn.com/slideshow-web/2022/10/06/9/6/f/2/1665046314326.jpg",
-  "https://avatar-ex-swe.nixcdn.com/slideshow-web/2022/10/06/9/6/f/2/1665071718543.jpg",
-  "https://avatar-ex-swe.nixcdn.com/slideshow-web/2022/10/06/9/6/f/2/1665053988917.jpg",
-  "https://avatar-ex-swe.nixcdn.com/slideshow-web/2022/10/07/2/d/c/4/1665108549637.jpg",
-  "https://avatar-ex-swe.nixcdn.com/slideshow-web/2022/10/07/2/d/c/4/1665141040625.jpg",
-  "https://avatar-ex-swe.nixcdn.com/slideshow-web/2022/10/07/2/d/c/4/1665141279703.jpg",
-]);
-const maxCount = items.value.length;
+
+const maxCount = props.items.length;
 
 function handleNext() {
   if (maxCount > current.value + 1) current.value++;

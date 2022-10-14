@@ -47,11 +47,13 @@
             type="range"
             min="1"
             max="100"
-            value="1"
+            v-model="currentTime"
             class="w-full h-[2px] bg-gray-200 rounded-lg appearance-none cursor-pointer"
           />
         </div>
-        <div><span class="text-xs text-gray-500 mx-2">03:15</span></div>
+        <div>
+          <span class="text-xs text-gray-500 mx-2">{{ duration }}</span>
+        </div>
       </div>
       <div class="flex flex-row justify-evenly items-center py-4">
         <button content="Ngẫu nhiên" v-tippy="{ placement: 'bottom' }">
@@ -60,8 +62,13 @@
         <button content="Bài trước" v-tippy="{ placement: 'bottom' }">
           <BackwardIcon class="w-5 h-5 text-gray-500" />
         </button>
-        <button content="Phát" v-tippy="{ placement: 'bottom' }">
-          <PlayIcon class="w-10 h-10 text-gray-500" />
+        <button
+          @click="isPlaying = !isPlaying"
+          :content="isPlaying ? 'Phát' : 'Tạm dừng'"
+          v-tippy="{ placement: 'bottom' }"
+        >
+          <PlayIcon v-if="isPlaying" class="w-10 h-10 text-gray-500" />
+          <PauseIcon v-else class="w-10 h-10 text-gray-500" />
         </button>
         <button content="Tiếp theo" v-tippy="{ placement: 'bottom' }">
           <ForwardIcon class="w-5 h-5 text-gray-500" />
@@ -78,21 +85,57 @@
 </template>
 
 <script setup lang="ts">
+import { handleError, onMounted, ref, watch } from "vue";
 import {
   SpeakerWaveIcon,
   EllipsisVerticalIcon,
 } from "@heroicons/vue/24/outline";
 import {
   PlayIcon,
+  PauseIcon,
   ForwardIcon,
   BackwardIcon,
   ArrowPathIcon,
   ArrowsRightLeftIcon,
 } from "@heroicons/vue/24/solid";
+
+const isPlaying = ref(true);
+const duration = ref<string>("00:00");
+const currentTime = ref<number>(0);
+const audio = new Audio();
+
+function getDuration(duration: number): string {
+  let minutes = Math.floor(duration / 60);
+  let seconds = Math.floor(duration % 60);
+  return `${minutes}:${seconds}`;
+}
+function getCurrentTime() {
+  return Math.floor(audio.currentTime);
+}
+
+onMounted(() => {
+  audio.onloadeddata = (e: Event) => {
+    duration.value = getDuration(audio.duration);
+  };
+});
+
+watch(isPlaying, (state) => {
+  if (isPlaying.value == true) {
+    audio.pause();
+  }
+  if (isPlaying.value == false) {
+    audio.play();
+  }
+});
+
+watch(currentTime, () => {
+  currentTime.value = audio.currentTime;
+});
 </script>
 <style scoped>
 .vertical-range {
   writing-mode: bt-lr; /* IE */
   -webkit-appearance: slider-vertical; /* Chromium */
+  /* appearance: slider-vertical; */
 }
 </style>

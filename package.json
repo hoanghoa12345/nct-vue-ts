@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.12",
+    "axios": "^1.1.2",
     "vue": "^3.2.37",
     "vue-router": "^4.1.5",
-    "vue-tippy": "6.0.0-alpha.65",
-    "vuex": "^4.0.2"
+    "vue-tippy": "6.0.0-alpha.65"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
