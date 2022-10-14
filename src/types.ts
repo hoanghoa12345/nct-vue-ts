@@ -30,6 +30,7 @@ export interface Track {
   artists: string;
   artwork: string;
   mp3_link: string;
+  duration: string;
 }
 export interface UsePlayer {
   [key: string]: any;

@@ -52,7 +52,7 @@
         />
         <div>
           <span class="text-xs text-gray-500 mx-2">{{
-            displayDuration(currentSong.duration, 2)
+            currentSong.duration
           }}</span>
         </div>
       </div>
