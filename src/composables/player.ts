@@ -29,5 +29,6 @@ export default function usePlayer(): UsePlayer {
     toggleShuffle: player.toggleShuffle.bind(player),
     toggleRepeat: player.toggleRepeat.bind(player),
     handleNextSong: player.handleNextSong.bind(player),
+    handlePrevSong: player.handlePrevSong.bind(player),
   };
 }

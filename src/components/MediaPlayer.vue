@@ -57,10 +57,21 @@
         </div>
       </div>
       <div class="flex flex-row justify-evenly items-center py-4">
-        <button content="Ngẫu nhiên" v-tippy="{ placement: 'bottom' }">
-          <ArrowsRightLeftIcon class="w-5 h-5 text-gray-500" />
+        <button
+          @click="toggleShuffle"
+          content="Ngẫu nhiên"
+          v-tippy="{ placement: 'bottom' }"
+        >
+          <ShuffleIcon
+            class="w-5 h-5 text-gray-500"
+            :class="{ 'text-cyan-600': isShuffle }"
+          />
         </button>
-        <button content="Bài trước" v-tippy="{ placement: 'bottom' }">
+        <button
+          @click="handlePrevSong"
+          content="Bài trước"
+          v-tippy="{ placement: 'bottom' }"
+        >
           <BackwardIcon class="w-5 h-5 text-gray-500" />
         </button>
         <button
@@ -71,11 +82,22 @@
           <PlayIcon v-if="!isPlaying" class="w-10 h-10 text-gray-500" />
           <PauseIcon v-else class="w-10 h-10 text-gray-500" />
         </button>
-        <button content="Tiếp theo" v-tippy="{ placement: 'bottom' }">
+        <button
+          @click="handleNextSong"
+          content="Tiếp theo"
+          v-tippy="{ placement: 'bottom' }"
+        >
           <ForwardIcon class="w-5 h-5 text-gray-500" />
         </button>
-        <button content="Ngẫu nhiên" v-tippy="{ placement: 'bottom' }">
-          <ArrowPathIcon class="w-5 h-5 text-gray-500" />
+        <button
+          @click="toggleRepeat"
+          content="Lặp lại"
+          v-tippy="{ placement: 'bottom' }"
+        >
+          <RepeatIcon
+            class="w-5 h-5 text-gray-500"
+            :class="{ 'text-cyan-600': repeat !== 'none' }"
+          />
         </button>
       </div>
       <div class="text-xs text-gray-500 text-center my-2">
@@ -99,6 +121,8 @@ import {
   ArrowPathIcon,
   ArrowsRightLeftIcon,
 } from "@heroicons/vue/24/solid";
+import ShuffleIcon from "@/components/ShuffleIcon.vue";
+import RepeatIcon from "@/components/RepeatIcon.vue";
 import { displayDuration } from "@/helpers/utils";
 import ProgressBar from "@/components/ProgressBar.vue";
 import VolumeBar from "@/components/VolumeBar.vue";
@@ -115,6 +139,12 @@ const {
   progress,
   currentPlaylist,
   volume,
+  toggleRepeat,
+  repeat,
+  toggleShuffle,
+  isShuffle,
+  handleNextSong,
+  handlePrevSong,
 } = player;
 
 function toggleQueuePlaylist() {

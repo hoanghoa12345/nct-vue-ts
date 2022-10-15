@@ -209,6 +209,18 @@ class Player {
     this._state.repeat = val;
   }
 
+  get previousSong(): Track | undefined {
+    this.currentSongId = this.currentSong._id;
+
+    if (this.currentSongId && Array.isArray(this.currentPlaylist.tracks)) {
+      const index = this.currentPlaylist.tracks.findIndex(
+        (song) => song._id === this.currentSongId
+      );
+
+      return this.currentPlaylist.tracks[index - 1];
+    }
+  }
+
   get nextSong(): Track | undefined {
     return head(this.queues);
   }
@@ -242,7 +254,7 @@ class Player {
         this.isPlaying = false;
       });
       navigator.mediaSession.setActionHandler("previoustrack", () => {
-        console.log("previoustrack");
+        this.handlePrevSong();
       });
       navigator.mediaSession.setActionHandler("nexttrack", () => {
         this.handleNextSong();
@@ -276,6 +288,7 @@ class Player {
   async loadSong(autoPlay?: boolean, song?: Track) {
     Howler.unload();
     const _song = song ? song : this.currentSong;
+    this.currentSongId = _song._id;
     const source = _song.mp3_link;
     this._howler = new Howl({
       src: [source],
@@ -347,6 +360,11 @@ class Player {
 
     if (song) this.currentSong = song;
 
+    this.loadSong(true);
+  }
+
+  handlePrevSong() {
+    if (this.previousSong) this.currentSong = this.previousSong;
     this.loadSong(true);
   }
 
